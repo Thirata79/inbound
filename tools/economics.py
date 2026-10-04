@@ -52,6 +52,8 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--no-ota-card", action="store_true",
                    help="OTA経由の予約には決済手数料をかけない")
+    p.add_argument("--target", type=int, default=200_000,
+                   help="月の目標残額（円）")
     args = p.parse_args()
     ota_card = not args.no_ota_card
 
@@ -66,9 +68,10 @@ def main() -> None:
         print(f"  {n:>4} {m['revenue']:>9,} {m['robert']:>9,} "
               f"{m['fees']:>9,.0f} {m['net']:>9,.0f}")
 
-    print("\n月30万円に必要な人数")
-    for label, share in [("直販のみ", 0.0), ("半々", 0.5), ("OTAのみ", 1.0)]:
-        print(f"  {label}: {people_needed(300_000, share, ota_card)}人")
+    print(f"\n月{args.target:,}円に必要な人数")
+    for label, share in [("直販のみ", 0.0), ("半々", 0.5), ("OTA7割", 0.7),
+                         ("OTAのみ", 1.0)]:
+        print(f"  {label}: {people_needed(args.target, share, ota_card)}人")
 
 
 if __name__ == "__main__":
