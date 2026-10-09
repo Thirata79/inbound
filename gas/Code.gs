@@ -93,24 +93,40 @@ function fillCalendar(months) {
 
 // ---------- web app ----------
 
+/**
+ * GET ?action=calendar | ?action=reserve&...fields, with &callback=name for JSONP.
+ * The site uses JSONP (a <script> tag) because a cross-origin fetch to a
+ * Workspace-owned web app is blocked by CORS in the browser.
+ */
 function doGet(e) {
   const p = (e && e.parameter) || {};
-  if (p.key !== CONFIG.SHARED_KEY) return json_({ ok: false, error: 'BAD_KEY' });
-  if (p.action !== 'calendar') return json_({ ok: false, error: 'BAD_ACTION' });
+  const cb = /^[A-Za-z_$][\w$]{0,40}$/.test(p.callback || '') ? p.callback : '';
+  const reply = body => cb
+    ? ContentService.createTextOutput(cb + '(' + body + ');').setMimeType(ContentService.MimeType.JAVASCRIPT)
+    : ContentService.createTextOutput(body).setMimeType(ContentService.MimeType.JSON);
+  if (p.key !== CONFIG.SHARED_KEY) return reply(JSON.stringify({ ok: false, error: 'BAD_KEY' }));
+  if (p.action === 'reserve') return reply(JSON.stringify(reserve_(p)));
+  if (p.action !== 'calendar') return reply(JSON.stringify({ ok: false, error: 'BAD_ACTION' }));
   const cache = CacheService.getScriptCache();
-  const hit = cache.get('calendar');
-  if (hit) return ContentService.createTextOutput(hit).setMimeType(ContentService.MimeType.JSON);
-  const body = JSON.stringify({ ok: true, days: openDays_() });
-  cache.put('calendar', body, 600);
-  return ContentService.createTextOutput(body).setMimeType(ContentService.MimeType.JSON);
+  let body = cache.get('calendar');
+  if (!body) {
+    body = JSON.stringify({ ok: true, days: openDays_() });
+    cache.put('calendar', body, 600);
+  }
+  return reply(body);
 }
 
 function doPost(e) {
   let b;
   try { b = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, error: 'BAD_REQUEST' }); }
-  if (b.website) return json_({ ok: true, id: 'Z-00000000-000' }); // honeypot
   if (b.key !== CONFIG.SHARED_KEY) return json_({ ok: false, error: 'BAD_KEY' });
   if (b.action !== 'reserve') return json_({ ok: false, error: 'BAD_ACTION' });
+  return json_(reserve_(b));
+}
+
+/** Validates a request and records it. b: the form fields (ack_* may be true or 'true'). */
+function reserve_(b) {
+  if (b.website) return { ok: true, id: 'Z-00000000-000' }; // honeypot
 
   const f = {};
   ['session_date', 'session_time', 'name', 'email', 'country', 'contact_type', 'contact_id',
@@ -118,22 +134,22 @@ function doPost(e) {
   f.party_size = Number(b.party_size);
 
   const day = openDays_().find(x => x.date === f.session_date);
-  if (!day) return json_({ ok: false, error: 'INVALID_DATE' });
-  if (day.slots.indexOf(f.session_time) < 0) return json_({ ok: false, error: 'INVALID_TIME' });
+  if (!day) return { ok: false, error: 'INVALID_DATE' };
+  if (day.slots.indexOf(f.session_time) < 0) return { ok: false, error: 'INVALID_TIME' };
   if (!(f.party_size >= 1 && f.party_size <= CONFIG.MAX_PARTY && Number.isInteger(f.party_size))) {
-    return json_({ ok: false, error: 'INVALID_PARTY_SIZE' });
+    return { ok: false, error: 'INVALID_PARTY_SIZE' };
   }
   const contactTypes = ['whatsapp', 'line', 'sms', 'email_only'];
   const floor = ['yes', 'no', 'unsure'];
   if (!f.name || !f.email || !f.country || contactTypes.indexOf(f.contact_type) < 0 ||
       floor.indexOf(f.floor_ok) < 0 || (f.contact_type !== 'email_only' && !f.contact_id) ||
-      b.ack_request !== true || b.ack_payment !== true) {
-    return json_({ ok: false, error: 'MISSING_FIELDS' });
+      String(b.ack_request) !== 'true' || String(b.ack_payment) !== 'true') {
+    return { ok: false, error: 'MISSING_FIELDS' };
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) return json_({ ok: false, error: 'INVALID_EMAIL' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) return { ok: false, error: 'INVALID_EMAIL' };
 
   const lock = LockService.getScriptLock();
-  if (!lock.tryLock(10000)) return json_({ ok: false, error: 'BUSY' });
+  if (!lock.tryLock(10000)) return { ok: false, error: 'BUSY' };
   let id;
   try {
     const sh = sheet_('reservations');
@@ -158,7 +174,7 @@ function doPost(e) {
   const r = Object.assign({ id: id, amount_jpy: CONFIG.PRICE_JPY * f.party_size }, f);
   try { mailAdminNew_(r); } catch (err) { console.error(err); }
   try { mailGuestReceived_(r); } catch (err) { console.error(err); }
-  return json_({ ok: true, id: id });
+  return { ok: true, id: id };
 }
 
 // ---------- scheduled jobs ----------

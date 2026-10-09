@@ -356,8 +356,23 @@
   }
   function showError(msg) { errorBox.textContent = msg; errorBox.hidden = false; }
 
-  fetch(ENDPOINT + '?action=calendar&key=' + encodeURIComponent(KEY))
-    .then(function (r) { return r.json(); })
+  // JSONP: a <script> request is not subject to CORS, which blocks fetch() to a Workspace-owned web app.
+  var seq = 0;
+  function call(params) {
+    return new Promise(function (resolve, reject) {
+      var name = 'tzsCallback' + (++seq) + '_' + Date.now();
+      var tag = document.createElement('script');
+      var timer = setTimeout(function () { finish(); reject(new Error('timeout')); }, 20000);
+      function finish() { clearTimeout(timer); delete window[name]; tag.remove(); }
+      window[name] = function (data) { finish(); resolve(data); };
+      tag.onerror = function () { finish(); reject(new Error('network')); };
+      params.key = KEY; params.callback = name;
+      tag.src = ENDPOINT + '?' + new URLSearchParams(params).toString();
+      document.body.appendChild(tag);
+    });
+  }
+
+  call({ action: 'calendar' })
     .then(function (d) {
       if (!d.ok || !d.days.length) { unavailable(); return; }
       days = d.days;
@@ -386,7 +401,7 @@
     if (Date.now() - lastSent < 60000) { showError('Please wait a moment before sending again.'); return; }
     var f = form.elements;
     var body = {
-      action: 'reserve', key: KEY,
+      action: 'reserve',
       session_date: f.session_date.value, session_time: f.session_time.value,
       party_size: +f.party_size.value, name: f.name.value, email: f.email.value,
       country: f.country.value, contact_type: f.contact_type.value, contact_id: f.contact_id.value,
@@ -396,8 +411,7 @@
     };
     var btn = form.querySelector('button[type=submit]');
     btn.disabled = true; btn.textContent = 'Sending…';
-    fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
-      .then(function (r) { return r.json(); })
+    call(body)
       .then(function (d) {
         if (d.ok) { lastSent = Date.now(); done(d.id); return; }
         showError((MESSAGES[d.error] || 'Something went wrong. Please try again.') + FALLBACK);
