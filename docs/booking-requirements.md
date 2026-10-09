@@ -49,6 +49,7 @@ Claude Code 用の実装指示書。四代目 魚盛の英語予約フォーム�
 
 - `gas/Code.gs`、`gas/appsscript.json`：Apps Script 本体。設定と導入の手順は `gas/README.md`
 - `site/index.html` の `#book`：フォーム本体。先頭の `ENDPOINT` に GAS の URL を入れるまでは「メールで予約して」と表示する
+- サイトとGASのやりとりは JSONP（`<script>` タグ、`?callback=`）。Workspace のアカウントで公開した Web アプリには、ブラウザの fetch がCORSで止められるため（2026-10-09 本番で確認）。申し込みも GET `action=reserve` で送る。doPost は互換のため残す
 - メールアドレス・支払いリンク・道順はコードに書かず、Script Properties に置く（リポジトリは公開されうるため）
 - 窓口のアドレスは暫定で info@takeshihirata.com（サイトの代替連絡先にも使用）
 
