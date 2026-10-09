@@ -19,7 +19,7 @@ Takeshi sells 75-minute zazen sessions for visitors to Japan under the name "Tok
 - Settlement is monthly. Takeshi sends a statement and pays by bank transfer by the 10th of the following month.
 
 ## 4. Schedule
-- Starting slots: Tuesday 7:30, 9:30, 15:30; Thursday 7:30, 9:30. More slots may be added by mutual agreement.
+- Starting slots: Tuesday 9:30, 11:30, 13:30, 15:30; Thursday 9:30, 12:30, 15:30. More slots may be added by mutual agreement.
 - Rob gives at least 2 weeks' notice of days he cannot teach.
 - If Rob cannot teach at short notice, he tells Takeshi immediately, and Takeshi contacts and refunds the guests.
 
