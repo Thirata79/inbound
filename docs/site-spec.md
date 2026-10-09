@@ -1,4 +1,4 @@
-# 公式サイト仕様（Tokyo Zazen Dojo, v0）
+# 公式サイト仕様（Tokyo Zazen Studio, v0）
 
 目的：OTA審査での事業確認、Google Business Profileのリンク先、OTAから名前で検索した人の直販への受け皿。
 1ページ・英語・静的HTML（`site/`）。Netlifyで公開。写真はテスト回のあとで差し替える。
@@ -11,7 +11,7 @@
 - 画像：今は墨の円相（SVG）のみ。写真はテスト回のあと `site/img/` に追加する。
 
 ## content（上から順）
-1. ヒーロー：Tokyo Zazen Dojo／Zen meditation in English, in a small group／予約リクエストへのボタン
+1. ヒーロー：Tokyo Zazen Studio／Zen meditation in English, in a small group／予約リクエストへのボタン
 2. What you'll do：導入 → 坐禅① → 歩行（経行） → 坐禅② → Q&A
 3. Details：75分、最大6名、9,000円/人、火・木、江東区（清澄白河・門前仲町）、服装、初心者可
 4. Your teacher：Rob Daoust（英語で直接指導）※経歴はRobertの確認後に追記

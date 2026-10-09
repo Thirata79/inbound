@@ -1,10 +1,10 @@
-# Memorandum of Understanding — Tokyo Zazen Dojo sessions
+# Memorandum of Understanding — Tokyo Zazen Studio sessions
 
 **Between:** Takeshi Hirata ("Takeshi") and Rob Daoust ("Rob")
 **Date:** ____ October 2026
 
 ## 1. What we are doing
-Takeshi sells 75-minute zazen sessions for visitors to Japan under the name "Tokyo Zazen Dojo". Rob teaches the sessions in English at his dojo in Koto City, Tokyo.
+Takeshi sells 75-minute zazen sessions for visitors to Japan under the name "Tokyo Zazen Studio". Rob teaches the sessions in English at his dojo in Koto City, Tokyo.
 
 ## 2. Who does what
 - **Rob:** provides the dojo, teaches each session, and looks after guests on the day (welcome, late arrivals, directions, problems on the day).
@@ -28,7 +28,6 @@ Free cancellation up to 24 hours before the session. No refund after that or for
 
 ## 6. Name, photos and listings
 Rob agrees that Takeshi may:
-- use the name "Tokyo Zazen Dojo" for sessions held at Rob's dojo;
 - show Rob's name, photo and profile on the website and booking sites;
 - publish the area (Kiyosumi-shirakawa / Monzen-nakacho) and send the exact address to confirmed guests;
 - register the dojo address on Google Business Profile, with Rob passing on the verification code;
