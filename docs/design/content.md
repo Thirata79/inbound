@@ -9,7 +9,7 @@
 - **サイト名**：Tokyo Zazen Studio
 - **サイト種別**：1ページのLP（＋送信完了ページ、法務ページ2つ）
 - **ターゲット**：東京に来ている英語話者の旅行者。坐禅は初めて。1人旅か2〜3人。滞在中の平日の昼に1〜2時間空いている。OTAで見つけて、名前で検索してきた人も含む。
-- **CV（訪問者にしてほしい行動）**：予約リクエストフォームの送信
+- **CV（訪問者にしてほしい行動）**：予約リクエストの送信（その後、確定メールの支払いリンクから支払い）
 - **サブCV**：OTAのレビューを見に行く（レビューが10件たまってから出す）
 - **トーン**：静か、短い文、誇張しない。"authentic", "life-changing" のような売り文句は使わない。二人称（you）で話しかける。
 - **表記ルール**
@@ -27,9 +27,9 @@
 | ページ | パス | 目的 | 優先度 |
 |---|---|---|---|
 | トップ（LP） | `/` | 体験を理解してもらい、予約リクエストを送ってもらう | 高 |
-| 送信完了 | `/thanks.html` | 受け付けたことと、次に何が起きるかを伝える | 高 |
+| 送信完了 | `/thanks.html` | v1ではページ内表示に置き換えるので不要 | 低 |
 | プライバシーポリシー | `/privacy.html` | フォームで個人情報を集めるので必要 | 中 `[要確認]` |
-| 特定商取引法に基づく表記 | `/legal.html` | 直販で代金を受け取るなら必要 | 中 `[要確認]` |
+| 特定商取引法に基づく表記 | `/legal.html` | 直販で前払いを受けるので必要 | 高 |
 
 ## 共通要素
 
@@ -130,27 +130,40 @@
   4. **Does the dojo hold other sittings?** — Yes. The dojo also holds its own regular sittings, guided in Japanese. This session is a separate introduction for visitors: guided in English from start to finish, in a small group, at times that fit a travel schedule, with time for your questions.
   5. **Can I come alone?** — Of course. Many people join on their own and sit with a small group.
   6. **Can I take photos?** — Photos are welcome before and after the session. During meditation we ask everyone to keep phones away.
-  7. **How do I pay?**（v1で追加）— `[要確認：直販の支払い方法（Stripeのリンク／当日現金など）]`
+  7. **How do I pay?**（v1で追加）— Once we confirm your time, we email you a secure online payment link. Your place is booked when payment is complete. Cancellations are free up to 24 hours before the session.
   8. **Can children join?**（v1で追加）— `[要確認：何歳から参加できるか]`
 
 ### セクション8：予約リクエスト（CV）
+> 仕様の詳細は `docs/booking-requirements.md`（魚盛の予約ツールを流用。GAS + スプレッドシート）。ここには画面に出す文言だけを書く。
+
 - **eyebrow**：Booking
 - **見出し**：Request a session
-- **リード**：Tell us when you would like to come. We will reply by email to confirm your time and send payment details.
-- **フォーム項目**（Netlify Forms、`booking-request`）
+- **リード**：Choose a date and time. We will reply within 24 hours to confirm, then send a secure payment link. Your place is booked once payment is complete.
+- **価格の帯**：¥9,000 per person · 75 minutes · up to 6 people（人数を選ぶと「Total: ¥18,000」のように合計を出す）
+- **フォーム項目**
   | 項目 | 種類 | 必須 |
   |---|---|---|
-  | Name | text | ○ |
+  | Date | カレンダー（受付中の日だけ選べる） | ○ |
+  | Time | 選んだ日の枠から選ぶ | ○ |
+  | Number of people | 1〜6（初期値2） | ○ |
+  | Full name | text | ○ |
   | Email | email | ○ |
-  | Preferred date | date | ○ |
-  | Number of people | select 1〜6（初期値2） | ○ |
-  | Preferred time | select：9:30 / 11:30 (Tue) / 12:30 (Thu) / 13:30 (Tue) / 15:30 / Any time | |
-  | Message (optional) | textarea、placeholder「Anything we should know」 | |
-  | （スパム対策）company | 隠しフィールド | |
-- **補足文**：Sessions run on Tuesdays and Thursdays.
-- **送信ボタンのラベル**：Send request
-- **プライバシーポリシーへの同意**：チェックボックスは置かず、ボタンの下に「By sending this form you agree to our Privacy Policy.」とリンクを置く `[要確認]`
-- **改善案（v1）**：日付で火・木以外を選んだら、その場で「Sessions run on Tuesdays and Thursdays」と出す
+  | Country / region | text | ○ |
+  | Preferred contact method | WhatsApp / LINE / SMS / Email only | ○ |
+  | Phone number or ID | text。補助：Include your country code (e.g. +1, +44) | Email only 以外なら○ |
+  | Where are you staying in Tokyo? | text | |
+  | Can you sit on a cushion on the floor for about 20 minutes? `[テスト回後：1回の坐禅の時間]` | Yes / No / Not sure | ○ |
+  | Anything else we should know? | textarea | |
+  | （スパム対策）website | 隠しフィールド | |
+- **床に座れない人への注記**（No / Not sure を選んだとき）：We will contact you to discuss options, such as sitting on a low bench or chair. `[要確認：会場に椅子があるか]`
+- **確認チェック**
+  - I understand this is a request, not a confirmed booking.
+  - I understand that payment is made online after confirmation, and that cancellations are free up to 24 hours before the session.
+- **送信ボタン**：Send request
+- **送信後（同じ画面）**：Thank you. Your request number is {id}. We will reply within 24 hours.
+- **失敗したとき**：Something went wrong. Please try again, or email us at `[要確認：窓口アドレス]`.
+- **プライバシーポリシー**：ボタンの下に「By sending this form you agree to our Privacy Policy.」とリンク
+- 送信後はページ内で完了を表示するので、`/thanks.html` は使わなくなる。JSが動かないときは `<noscript>` で「Email us at [窓口アドレス] to book」と出す
 
 ---
 
@@ -162,14 +175,14 @@
 - `noindex`
 
 ## プライバシーポリシー `/privacy.html` `[要確認]`
-- 集める情報：名前、メール、希望日時、人数、メッセージ
+- 集める情報：名前、メール、国、連絡手段とID、滞在先、希望日時、人数、メッセージ
 - 目的：予約の確認と連絡のみ
 - 第三者提供：しない（OTA経由の予約は各OTAの規約による）
-- 保存先：Netlify（フォーム）、メール
+- 保存先：Google スプレッドシート（T のアカウント）、メール。支払いは Stripe（カード情報は当方に届かない）
 - 問い合わせ先：運営者 Takeshi Hirata、連絡先 `[要確認]`
 
-## 特定商取引法に基づく表記 `/legal.html` `[要確認]`
-- 直販で代金を受け取り始める前に必要。販売事業者名（平田武）、所在地・電話番号（請求があれば遅滞なく開示する旨の記載で足りるか確認）、価格、支払方法・時期、キャンセル規定。
+## 特定商取引法に基づく表記 `/legal.html`
+- 直販で Stripe の前払いにするので **必要**。販売事業者名（平田武）、所在地・電話番号（請求があれば遅滞なく開示する旨の記載で足りるか確認）、価格、支払方法・時期、キャンセル規定。
 
 ---
 
@@ -191,6 +204,6 @@
 ## 法務・必須掲載事項
 
 - [ ] プライバシーポリシー
-- [ ] 特定商取引法に基づく表記（直販で代金を受け取るなら）
+- [ ] 特定商取引法に基づく表記（直販で前払いを受けるので必要）
 - [x] 運営者名の明記（フッター）
 - [ ] 道場（法人）の名前を出していないことの確認
