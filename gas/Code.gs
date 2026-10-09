@@ -46,6 +46,7 @@ function setupSheets() {
   const ss = SpreadsheetApp.getActive();
   const res = getOrCreate_(ss, 'reservations', RES_HEADERS);
   res.getRange('A:F').setNumberFormat('@');
+  res.getRange('K:K').setNumberFormat('@');
   res.getRange('C2:C').setDataValidation(SpreadsheetApp.newDataValidation()
     .requireValueInList(Object.values(STATUS), true).build());
   const cal = getOrCreate_(ss, 'calendar', CAL_HEADERS);
@@ -165,7 +166,10 @@ function reserve_(b) {
       contact_id: f.contact_id, hotel: f.hotel, floor_ok: f.floor_ok, notes_guest: f.notes_guest,
       source: f.source || 'direct', amount_jpy: amount,
     };
-    sh.appendRow(RES_HEADERS.map(h => row[h] === undefined ? '' : row[h]));
+    // Write as plain text: appendRow would turn '2026-11-24', '9:30' and phone numbers into dates and numbers.
+    const target = sh.getRange(sh.getLastRow() + 1, 1, 1, RES_HEADERS.length);
+    target.setNumberFormat('@');
+    target.setValues([RES_HEADERS.map(h => row[h] === undefined ? '' : String(row[h]))]);
     SpreadsheetApp.flush();
   } finally {
     lock.releaseLock();
@@ -436,9 +440,17 @@ function eachRow_(fn) {
   const head = values[0];
   values.slice(1).forEach((v, i) => {
     const r = {};
-    head.forEach((h, j) => { r[h] = v[j] instanceof Date ? (h === 'session_date' ? dateStr_(v[j]) : fmt_(v[j], 'yyyy-MM-dd HH:mm')) : String(v[j]); });
+    head.forEach((h, j) => { r[h] = cellStr_(h, v[j]); });
     fn(r, (k, val) => sh.getRange(i + 2, head.indexOf(k) + 1).setValue(val));
   });
+}
+
+/** Reads a cell as text, undoing Sheets' automatic date/time conversion (e.g. rows typed in by hand). */
+function cellStr_(h, v) {
+  if (!(v instanceof Date)) return String(v);
+  if (h === 'session_date') return dateStr_(v);
+  if (h === 'session_time') return Utilities.formatDate(v, SpreadsheetApp.getActive().getSpreadsheetTimeZone(), 'H:mm');
+  return fmt_(v, 'yyyy-MM-dd HH:mm');
 }
 
 function isDirect_(r) { return r.id.indexOf('Z-') === 0 && r.email; }
