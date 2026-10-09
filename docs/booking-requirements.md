@@ -45,6 +45,13 @@ Claude Code 用の実装指示書。四代目 魚盛の英語予約フォーム�
 
 -----
 
+## 実装（2026-10-09）
+
+- `gas/Code.gs`、`gas/appsscript.json`：Apps Script 本体。設定と導入の手順は `gas/README.md`
+- `site/index.html` の `#book`：フォーム本体。先頭の `ENDPOINT` に GAS の URL を入れるまでは「メールで予約して」と表示する
+- メールアドレス・支払いリンク・道順はコードに書かず、Script Properties に置く（リポジトリは公開されうるため）
+- 窓口のアドレスは暫定で info@takeshihirata.com（サイトの代替連絡先にも使用）
+
 ## 3. システム構成
 
 ```
@@ -79,7 +86,7 @@ Claude Code 用の実装指示書。四代目 魚盛の英語予約フォーム�
 |---|---|---|
 | A | id | `Z-YYYYMMDD-001`（開催日ベース）。GAS で採番。OTA の行は T が `OTA-` で始まる番号を入れる |
 | B | submitted_at | 受付日時 |
-| C | status | 新規 / 確定 / 支払済 / 不可 / キャンセル / 参加済 / No-show。初期値 新規 |
+| C | status | 新規 / 確定 / 支払済 / 不可 / キャンセル / 直前キャンセル / 参加済 / No-show。初期値 新規。直前キャンセル＝24時間以内のキャンセル（Robertへの支払い対象）。OTAの行は、有効な予約なら 確定 のままでよい |
 | D | session_date | |
 | E | session_time | `9:30` 形式の文字列 |
 | F | party_size | 1〜6 |
@@ -116,10 +123,10 @@ calendar に無い日付は受付不可。
 | A | month（YYYY-MM） |
 | B | session_date |
 | C | session_time |
-| D | persons（参加済 + No-show + 24時間以内のキャンセル） |
+| D | persons（参加済 + No-show + 直前キャンセル） |
 | E | 備考 |
 
-Robert への支払いは、参加済に加えて無断欠席・24時間以内のキャンセル分も対象（2026-10-09 合意）。1人あたりの単価と累進は `docs/rob-checklist.md` に従い、計算はシートの式で行う ○
+Robert への支払いは、参加済に加えて無断欠席・24時間以内のキャンセル分も対象（2026-10-09 合意）。月の合計行に支払額を出す：100人まで 3,500円、101〜150人目 3,750円、151人目から 4,000円（超えた分のみ。`docs/rob-checklist.md` A1）
 
 -----
 

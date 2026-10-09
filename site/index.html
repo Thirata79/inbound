@@ -58,7 +58,7 @@
     .btn {
       display: inline-block; padding: 14px 32px; border: 1px solid var(--ink);
       background: var(--ink); color: var(--paper); text-decoration: none;
-      font-weight: 600; letter-spacing: .04em; border-radius: 2px; cursor: pointer; font-size: 1rem;
+      font-family: inherit; font-weight: 600; letter-spacing: .04em; border-radius: 2px; cursor: pointer; font-size: 1rem;
     }
     .btn:hover { background: transparent; color: var(--ink); }
     .facts { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; margin-top: 2.5rem; color: var(--muted); font-size: .95rem; }
@@ -92,6 +92,24 @@
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .note { font-size: .9rem; color: var(--muted); margin: 0; }
     .hidden { display: none; }
+    [hidden] { display: none !important; }
+    .price-band { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; margin: 0 0 1.5rem; }
+    fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+    legend { font-size: .95rem; font-weight: 600; padding: 0; margin-bottom: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { display: inline-flex; font-weight: 400; cursor: pointer; }
+    .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .chip span { border: 1px solid var(--line); background: var(--paper); padding: 8px 18px; border-radius: 2px; min-width: 72px; text-align: center; }
+    .chip input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 1px; }
+    .total { margin: 0; font-weight: 600; }
+    .hint, .opt { font-size: .85rem; font-weight: 400; color: var(--muted); }
+    label.check { display: grid; grid-template-columns: 20px 1fr; gap: 10px; font-weight: 400; align-items: start; }
+    label.check input { width: 18px; height: 18px; margin: 5px 0 0; padding: 0; accent-color: var(--ink); }
+    .error { color: #A33A2B; margin: 0; }
+    .done { background: var(--card); border: 1px solid var(--line); padding: 32px; border-radius: 2px; }
+    .done h3 { margin-bottom: .5rem; }
+    .btn[disabled] { opacity: .5; cursor: wait; }
 
     footer { padding: 48px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; text-align: center; }
 
@@ -208,32 +226,72 @@
     <div class="wrap">
       <p class="eyebrow">Booking</p>
       <h2>Request a session</h2>
-      <p>Tell us when you would like to come. We will reply by email to confirm your time and send payment details.</p>
-      <form name="booking-request" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks.html">
-        <input type="hidden" name="form-name" value="booking-request">
-        <p class="hidden"><label>Leave this empty <input name="company"></label></p>
+      <p>Choose a date and time. We will reply within 24 hours to confirm, then send a secure payment link. Your place is booked once payment is complete.</p>
+      <p class="price-band">¥9,000 per person · 75 minutes · up to 6 people</p>
+      <noscript><p class="note">Online booking needs JavaScript. Please email us at <a href="mailto:info@takeshihirata.com">info@takeshihirata.com</a> to book.</p></noscript>
+
+      <form id="booking" novalidate hidden>
+        <p class="hidden"><label>Leave this empty <input name="website" tabindex="-1" autocomplete="off"></label></p>
         <div class="row">
-          <label>Name<input name="name" autocomplete="name" required></label>
-          <label>Email<input type="email" name="email" autocomplete="email" required></label>
-        </div>
-        <div class="row">
-          <label>Preferred date<input type="date" name="date" required></label>
+          <label>Date
+            <select name="session_date" required><option value="">Loading dates…</option></select>
+          </label>
           <label>Number of people
-            <select name="people" required>
+            <select name="party_size" required>
               <option>1</option><option selected>2</option><option>3</option>
               <option>4</option><option>5</option><option>6</option>
             </select>
           </label>
         </div>
-        <label>Preferred time
-          <select name="time">
-            <option>9:30</option><option>11:30 (Tue)</option><option>12:30 (Thu)</option><option>13:30 (Tue)</option><option>15:30</option><option>Any time</option>
-          </select>
-        </label>
-        <label>Message (optional)<textarea name="message" rows="4" placeholder="Anything we should know"></textarea></label>
-        <p class="note">Sessions run on Tuesdays and Thursdays.</p>
+        <fieldset class="times">
+          <legend>Time</legend>
+          <div class="chips" id="times"><span class="note">Choose a date first.</span></div>
+        </fieldset>
+        <p class="total" id="total" aria-live="polite">Total: ¥18,000</p>
+
+        <div class="row">
+          <label>Full name<input name="name" autocomplete="name" required></label>
+          <label>Email<input type="email" name="email" autocomplete="email" required></label>
+        </div>
+        <label>Country / region<input name="country" autocomplete="country-name" required></label>
+        <div class="row">
+          <label>Preferred contact method
+            <select name="contact_type" required>
+              <option value="email_only">Email only</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="line">LINE</option>
+              <option value="sms">SMS</option>
+            </select>
+          </label>
+          <label id="contact-id-label" hidden>Phone number or ID
+            <input name="contact_id" autocomplete="tel">
+            <span class="hint">Include your country code (e.g. +1, +44)</span>
+          </label>
+        </div>
+        <label>Where are you staying in Tokyo? <span class="opt">(optional)</span><input name="hotel"></label>
+        <fieldset>
+          <legend>Can you sit on a cushion on the floor for about 20 minutes?</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="floor_ok" value="yes" required><span>Yes</span></label>
+            <label class="chip"><input type="radio" name="floor_ok" value="no"><span>No</span></label>
+            <label class="chip"><input type="radio" name="floor_ok" value="unsure"><span>Not sure</span></label>
+          </div>
+          <p class="note" id="floor-note" hidden>We will contact you to discuss options, such as sitting on a low bench or chair.</p>
+        </fieldset>
+        <label>Anything else we should know? <span class="opt">(optional)</span><textarea name="notes_guest" rows="3"></textarea></label>
+
+        <label class="check"><input type="checkbox" name="ack_request" required><span>I understand this is a request, not a confirmed booking.</span></label>
+        <label class="check"><input type="checkbox" name="ack_payment" required><span>I understand that payment is made online after confirmation, and that cancellations are free up to 24 hours before the session.</span></label>
+
+        <p class="error" id="form-error" role="alert" hidden></p>
         <button class="btn" type="submit">Send request</button>
       </form>
+
+      <div class="done" id="booking-done" hidden>
+        <h3>Thank you</h3>
+        <p>Your request number is <strong id="booking-id"></strong>. We will reply within 24 hours.</p>
+      </div>
+      <p class="note" id="booking-unavailable" hidden>Online booking is not available right now. Please email us at <a href="mailto:info@takeshihirata.com">info@takeshihirata.com</a> to book.</p>
     </div>
   </section>
 </main>
@@ -246,5 +304,116 @@
   </div>
 </footer>
 
+
+<script>
+(function () {
+  var ENDPOINT = 'https://script.google.com/a/macros/takeshihirata.com/s/AKfycbxW0M59lawSa4Aaf9Zz-gmjC9euEXsGisPN9AovdcpAXnU5_7WdjI6e8azvmYr-hjCF/exec'; // Google Apps Script web app (gas/README.md)
+  var KEY = 'tzs-2026';
+  var PRICE = 9000;
+
+  var form = document.getElementById('booking');
+  var dateSel = form.elements.session_date;
+  var timesBox = document.getElementById('times');
+  var errorBox = document.getElementById('form-error');
+  var days = [];
+  var lastSent = 0;
+  var MESSAGES = {
+    INVALID_DATE: 'That date is no longer available. Please choose another date.',
+    INVALID_TIME: 'That time is no longer available. Please choose another time.',
+    INVALID_PARTY_SIZE: 'Sessions are for up to 6 people.',
+    MISSING_FIELDS: 'Please fill in the required fields.',
+    INVALID_EMAIL: 'Please check your email address.',
+    BUSY: 'We are busy for a moment. Please try again.'
+  };
+  var FALLBACK = ' If the problem continues, please email us at info@takeshihirata.com.';
+
+  function unavailable() {
+    form.hidden = true;
+    document.getElementById('booking-unavailable').hidden = false;
+  }
+  if (!ENDPOINT) { unavailable(); return; }
+  form.hidden = false;
+
+  function label(ds) {
+    var p = ds.split('-');
+    var d = new Date(+p[0], +p[1] - 1, +p[2]);
+    return d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  }
+  function renderTimes() {
+    var day = days.filter(function (d) { return d.date === dateSel.value; })[0];
+    timesBox.innerHTML = '';
+    if (!day) { timesBox.innerHTML = '<span class="note">Choose a date first.</span>'; return; }
+    day.slots.forEach(function (t) {
+      var l = document.createElement('label'); l.className = 'chip';
+      l.innerHTML = '<input type="radio" name="session_time" required><span></span>';
+      l.querySelector('input').value = t; l.querySelector('span').textContent = t;
+      timesBox.appendChild(l);
+    });
+  }
+  function renderTotal() {
+    var n = +form.elements.party_size.value;
+    document.getElementById('total').textContent = 'Total: ¥' + (n * PRICE).toLocaleString('en-US');
+  }
+  function showError(msg) { errorBox.textContent = msg; errorBox.hidden = false; }
+
+  fetch(ENDPOINT + '?action=calendar&key=' + encodeURIComponent(KEY))
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d.ok || !d.days.length) { unavailable(); return; }
+      days = d.days;
+      dateSel.innerHTML = '<option value="">Choose a date</option>' + days.map(function (x) {
+        return '<option value="' + x.date + '">' + label(x.date) + '</option>';
+      }).join('');
+    })
+    .catch(unavailable);
+
+  dateSel.addEventListener('change', renderTimes);
+  form.elements.party_size.addEventListener('change', renderTotal);
+  form.elements.contact_type.addEventListener('change', function () {
+    var need = this.value !== 'email_only';
+    document.getElementById('contact-id-label').hidden = !need;
+    form.elements.contact_id.required = need;
+  });
+  form.addEventListener('change', function (e) {
+    if (e.target.name === 'floor_ok') document.getElementById('floor-note').hidden = e.target.value === 'yes';
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorBox.hidden = true;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    if (form.elements.website.value) { done('—'); return; }
+    if (Date.now() - lastSent < 60000) { showError('Please wait a moment before sending again.'); return; }
+    var f = form.elements;
+    var body = {
+      action: 'reserve', key: KEY,
+      session_date: f.session_date.value, session_time: f.session_time.value,
+      party_size: +f.party_size.value, name: f.name.value, email: f.email.value,
+      country: f.country.value, contact_type: f.contact_type.value, contact_id: f.contact_id.value,
+      hotel: f.hotel.value, floor_ok: f.floor_ok.value, notes_guest: f.notes_guest.value,
+      source: new URLSearchParams(location.search).get('utm_source') || 'direct',
+      ack_request: f.ack_request.checked, ack_payment: f.ack_payment.checked
+    };
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d.ok) { lastSent = Date.now(); done(d.id); return; }
+        showError((MESSAGES[d.error] || 'Something went wrong. Please try again.') + FALLBACK);
+      })
+      .catch(function () { showError('Something went wrong. Please try again.' + FALLBACK); })
+      .then(function () { btn.disabled = false; btn.textContent = 'Send request'; });
+  });
+
+  function done(id) {
+    document.getElementById('booking-id').textContent = id;
+    form.hidden = true;
+    var box = document.getElementById('booking-done');
+    box.hidden = false;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+})();
+</script>
 </body>
 </html>
