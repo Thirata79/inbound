@@ -73,6 +73,8 @@
     dl.details dt { color: var(--muted); }
     dl.details dd { margin: 0; }
 
+    .teacher { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: start; }
+    .teacher img { width: 100%; height: auto; border-radius: 2px; display: block; }
     details.faq { border-bottom: 1px solid var(--line); padding: 18px 0; }
     details.faq summary { cursor: pointer; font-weight: 600; list-style: none; position: relative; padding-right: 32px; }
     details.faq summary::-webkit-details-marker { display: none; }
@@ -99,6 +101,8 @@
       dl.details { grid-template-columns: 1fr; gap: 2px; }
       dl.details dd { margin-bottom: 14px; }
       .row { grid-template-columns: 1fr; }
+      .teacher { grid-template-columns: 1fr; gap: 24px; }
+      .teacher img { max-width: 280px; }
       form { padding: 22px; }
     }
   </style>
@@ -157,8 +161,15 @@
   <section id="teacher">
     <div class="wrap">
       <p class="eyebrow">Your teacher</p>
-      <h2>Rob Daoust</h2>
-      <p>Rob runs his own Zen dojo in Tokyo and teaches every session himself, in English. Sessions are kept small so that he can give each person attention, from posture to breathing to the questions that come up while sitting.</p>
+      <div class="teacher">
+        <img src="img/rob-daoust.jpg" width="900" height="1200" loading="lazy"
+             alt="Rob Daoust in a dark blue kimono, seated in front of a lattice window with a plum tree design">
+        <div>
+          <h2>Rob Daoust</h2>
+          <p>Rob practises and teaches zazen at a Zen dojo in Tokyo, and he guides every session himself, in English. He has welcomed visitors and international groups to the dojo before.</p>
+          <p>Sessions are kept small so that he can give each person attention, from posture to breathing to the questions that come up while sitting.</p>
+        </div>
+      </div>
     </div>
   </section>
 
