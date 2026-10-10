@@ -366,7 +366,7 @@
     return new Promise(function (resolve, reject) {
       var name = 'tzsCallback' + (++seq) + '_' + Date.now();
       var tag = document.createElement('script');
-      var timer = setTimeout(function () { finish(); reject(new Error('timeout')); }, 20000);
+      var timer = setTimeout(function () { finish(); reject(new Error('timeout')); }, 25000);
       function finish() { clearTimeout(timer); delete window[name]; tag.remove(); }
       window[name] = function (data) { finish(); resolve(data); };
       tag.onerror = function () { finish(); reject(new Error('network')); };
@@ -376,7 +376,9 @@
     });
   }
 
+  // Apps Script can take a while to wake up, so try the calendar twice before giving up.
   call({ action: 'calendar' })
+    .catch(function () { return call({ action: 'calendar' }); })
     .then(function (d) {
       if (!d.ok || !d.days.length) { unavailable(); return; }
       days = d.days;
