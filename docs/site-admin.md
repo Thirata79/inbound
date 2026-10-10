@@ -5,7 +5,7 @@ Tの作業は「予約シートを見る」だけにする。サイトのコー�
 ## どこに何があるか
 | もの | 場所 |
 |---|---|
-| 公開URL | https://tokyo-zs.com/（XServerドメインで取得。旧 https://tokyo-zazen-studio.netlify.app/ は自動で転送） |
+| 公開URL | https://tokyozazen.com/（XServerドメインで取得。旧 https://tokyo-zazen-studio.netlify.app/ は自動で転送） |
 | Netlifyの管理画面 | https://app.netlify.com/projects/tokyo-zazen-studio |
 | ページの中身 | `site/index.html`（1ページ）、写真は `site/img/` |
 | 予約の受付・自動メール | Googleスプレッドシート「Tokyo Zazen Studio 予約」＋Apps Script（`gas/`、手順は `gas/README.md`） |
@@ -30,5 +30,5 @@ Tの作業は「予約シートを見る」だけにする。サイトのコー�
 - 3ヶ月ごとに `fillCalendar` を実行して先の日程を足す（`gas/README.md`）。
 
 ## ドメインと未決事項
-- **独自ドメイン `tokyo-zs.com`（2026-10-10 取得、XServerドメイン）**：自動更新オン。DNSはXServer側で `@` → Aレコード `75.2.60.5`、`www` → CNAME `tokyo-zazen-studio.netlify.app`。Netlifyの Domain management に登録済みにすること。
+- **独自ドメイン `tokyozazen.com`（2026-10-10 取得、XServerドメイン）**：自動更新オン。DNSはXServer側で `@` → Aレコード `75.2.60.5`、`www` → CNAME `tokyo-zazen-studio.netlify.app`。Netlifyの Domain management に登録済みにすること。
 - Netlify Forms は今は使っていない（予約はGAS）。`site/thanks.html` は旧フォームの名残で、どこからもリンクされていない。消してよい。
