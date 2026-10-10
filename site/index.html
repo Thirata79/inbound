@@ -331,11 +331,13 @@
   };
   var FALLBACK = ' If the problem continues, please email us at info@takeshihirata.com.';
 
-  function unavailable() {
+  var DEBUG = /[?&]debug=1/.test(location.search);
+  function unavailable(why) {
+    if (DEBUG) document.getElementById('booking-unavailable').textContent = 'DEBUG: ' + why;
     form.hidden = true;
     document.getElementById('booking-unavailable').hidden = false;
   }
-  if (!ENDPOINT) { unavailable(); return; }
+  if (!ENDPOINT) { unavailable('no endpoint'); return; }
   form.hidden = false;
 
   function label(ds) {
@@ -380,13 +382,13 @@
   call({ action: 'calendar' })
     .catch(function () { return call({ action: 'calendar' }); })
     .then(function (d) {
-      if (!d.ok || !d.days.length) { unavailable(); return; }
+      if (!d.ok || !d.days.length) { unavailable(JSON.stringify(d).slice(0, 300)); return; }
       days = d.days;
       dateSel.innerHTML = '<option value="">Choose a date</option>' + days.map(function (x) {
         return '<option value="' + x.date + '">' + label(x.date) + '</option>';
       }).join('');
     })
-    .catch(function (err) { console.error('Booking calendar failed to load', err); unavailable(); });
+    .catch(function (err) { console.error('Booking calendar failed to load', err); unavailable(err.message + ' / ' + navigator.userAgent); });
 
   dateSel.addEventListener('change', renderTimes);
   form.elements.party_size.addEventListener('change', renderTotal);
