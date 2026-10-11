@@ -8,6 +8,9 @@
   <meta property="og:title" content="Tokyo Zazen Studio — Zen Meditation in English">
   <meta property="og:description" content="75 minutes of zazen in a quiet Tokyo dojo. Taught in English, small groups, beginners welcome.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tokyozazen.com/">
+  <meta property="og:image" content="https://tokyozazen.com/img/rob-daoust.jpg">
+  <link rel="canonical" href="https://tokyozazen.com/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='36' fill='none' stroke='%231F1D1A' stroke-width='9' stroke-dasharray='200 30' stroke-linecap='round' transform='rotate(-70 50 50)'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,7 +170,7 @@
         <dt>Duration</dt><dd>75 minutes</dd>
         <dt>Group size</dt><dd>Up to 6 people</dd>
         <dt>Price</dt><dd>¥9,000 per person</dd>
-        <dt>Times</dt><dd>Tuesdays at 9:30, 11:30, 13:30 and 15:30<br>Thursdays at 9:30, 12:30 and 15:30</dd>
+        <dt>Times</dt><dd>Tuesdays at 9:30, 11:30, 13:30 and 15:30<br>Thursday sessions are coming soon.</dd>
         <dt>Location</dt><dd>Koto City, Tokyo, near Kiyosumi-shirakawa and Monzen-nakacho stations. The exact address is sent with your booking confirmation.</dd>
         <dt>What to wear</dt><dd>Loose, comfortable clothing you can sit cross-legged in. Shoes are removed inside.</dd>
         <dt>Language</dt><dd>English</dd>
@@ -300,6 +303,7 @@
   <div class="wrap">
     <p>Tokyo Zazen Studio · Koto City, Tokyo</p>
     <p>Sessions for visitors are organised by Takeshi Hirata.</p>
+    <p><a href="legal.html">Legal notice (特定商取引法に基づく表記)</a> · <a href="mailto:info@takeshihirata.com">info@takeshihirata.com</a></p>
     <p>© 2026 Takeshi Hirata</p>
   </div>
 </footer>
@@ -327,11 +331,13 @@
   };
   var FALLBACK = ' If the problem continues, please email us at info@takeshihirata.com.';
 
-  function unavailable() {
+  var DEBUG = /[?&]debug=1/.test(location.search);
+  function unavailable(why) {
+    if (DEBUG) document.getElementById('booking-unavailable').textContent = 'DEBUG: ' + why;
     form.hidden = true;
     document.getElementById('booking-unavailable').hidden = false;
   }
-  if (!ENDPOINT) { unavailable(); return; }
+  if (!ENDPOINT) { unavailable('no endpoint'); return; }
   form.hidden = false;
 
   function label(ds) {
@@ -362,7 +368,7 @@
     return new Promise(function (resolve, reject) {
       var name = 'tzsCallback' + (++seq) + '_' + Date.now();
       var tag = document.createElement('script');
-      var timer = setTimeout(function () { finish(); reject(new Error('timeout')); }, 20000);
+      var timer = setTimeout(function () { finish(); reject(new Error('timeout')); }, 25000);
       function finish() { clearTimeout(timer); delete window[name]; tag.remove(); }
       window[name] = function (data) { finish(); resolve(data); };
       tag.onerror = function () { finish(); reject(new Error('network')); };
@@ -372,15 +378,17 @@
     });
   }
 
+  // Apps Script can take a while to wake up, so try the calendar twice before giving up.
   call({ action: 'calendar' })
+    .catch(function () { return call({ action: 'calendar' }); })
     .then(function (d) {
-      if (!d.ok || !d.days.length) { unavailable(); return; }
+      if (!d.ok || !d.days.length) { unavailable(JSON.stringify(d).slice(0, 300)); return; }
       days = d.days;
       dateSel.innerHTML = '<option value="">Choose a date</option>' + days.map(function (x) {
         return '<option value="' + x.date + '">' + label(x.date) + '</option>';
       }).join('');
     })
-    .catch(function (err) { console.error('Booking calendar failed to load', err); unavailable(); });
+    .catch(function (err) { console.error('Booking calendar failed to load', err); unavailable(err.message + ' / ' + navigator.userAgent); });
 
   dateSel.addEventListener('change', renderTimes);
   form.elements.party_size.addEventListener('change', renderTotal);
