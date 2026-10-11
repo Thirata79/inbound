@@ -5,7 +5,7 @@ const FONT = { ascii: 'Arial', hAnsi: 'Arial', eastAsia: 'Yu Gothic', cs: 'Arial
 const W = 9026; // A4 text width with 1" margins
 const p = (text, opts = {}) => new Paragraph({ spacing: { after: 120 }, ...opts, children: [].concat(text).map(t => typeof t === 'string' ? new TextRun(t) : t) });
 const b = (t) => new TextRun({ text: t, bold: true });
-const hl = (t) => new TextRun({ text: t, bold: true, highlight: 'yellow' });
+const hl = (t) => new TextRun({ text: t, bold: true });
 const h1 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(t)] });
 const h2 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(t)] });
 const li = (text) => new Paragraph({ numbering: { reference: 'bul', level: 0 }, spacing: { after: 60 }, children: [].concat(text).map(t => typeof t === 'string' ? new TextRun(t) : t) });
