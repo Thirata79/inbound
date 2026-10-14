@@ -20,7 +20,7 @@
 
 | プロパティ | 値 | 必須 |
 |---|---|---|
-| `PAYMENT_LINK` | Stripe の Payment Link の URL（¥9,000、「数量の変更を許可」をオン、1〜6） | 確定メールに必要 |
+| `PAYMENT_LINK` | Stripe の Payment Link の URL（¥9,000、「数量の変更を許可」をオン、1〜8） | 確定メールに必要 |
 | `VENUE_DIRECTIONS` | 住所と駅からの道順（改行してよい） | 前日リマインドに必要 |
 | `ROBERT_EMAIL` | Robert のメールアドレス | 前日の人数連絡に必要 |
 | `ADMIN_EMAIL` | 新しい予約の通知先。空ならこのアカウント | 任意 |

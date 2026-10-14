@@ -6,7 +6,7 @@
 - **価格は9,000円で出す。** サイトと同じ価格にする（OTAのほうが安いと直販が売れない。高いとOTAの審査や価格の規約で問題になることがある）。レビューが10件たまったら、サイトとOTAを同時に10,000円に上げる（Robertには4,000円/人。合意済み）。
 - **出すのは火曜の3枠だけ**（9:30・11:30・15:30）。木曜は会場の確認がとれてから追加する。
 - **GetYourGuideの販売手数料は25%（2026-10-14 申請画面で確認）。** 9,000円なら1人あたりの受取は6,750円。
-- **定員6名、1名から開催。** キャンセルは24時間前まで無料（OTAの標準の設定と同じ）。
+- **定員8名、1名から開催**（2026-10-14 T決定。部屋は12席。9〜12名の団体は直販で受ける）。 キャンセルは24時間前まで無料（OTAの標準の設定と同じ）。
 - **貸し切りはまだ出さない。** Robertの取り分（6,000円）が決まってから、別の商品として出す。
 - **言語は英語とフランス語の両方を、1つの商品で出す。** 商品を分けるとレビューが分かれるため。
 - 道場の名前、「monk」「temple」は使わない（CLAUDE.md 4・6）。
@@ -34,12 +34,12 @@ Tokyo: Zen Meditation in a Small Group with an English-Speaking Teacher
 （Viatorで短くする場合：Tokyo Zazen: Zen Meditation Class in English or French）
 
 **Short description（短い説明、約150字）**
-Learn zazen, the seated meditation of Zen, in a quiet Tokyo dojo. A teacher guides you directly in English or French, in a group of no more than six.
+Learn zazen, the seated meditation of Zen, in a quiet Tokyo dojo. A teacher guides you directly in English or French, in a group of no more than eight.
 
 **Highlights（ハイライト）**
 - Learn zazen step by step in a real Zen dojo in Tokyo
 - Guided directly in English or French, with no interpreter in between
-- Small group of up to 6 people, so the teacher can help each person
+- Small group of up to 8 people, so the teacher can help each person
 - Two sittings, walking meditation and time for your questions
 - No experience needed: designed for first-timers
 
@@ -50,12 +50,12 @@ Your teacher, Rob Daoust, practises and teaches zazen in Tokyo, and guides every
 
 The session begins with an introduction to how to sit, how to breathe and what zazen is. You then sit for a first period of meditation, practise kinhin (slow walking meditation), and sit a second time now that you know the way. The session ends with time for questions about Zen, meditation, or keeping a practice at home.
 
-Groups are kept to six people or fewer, so the teacher can look at your posture and help you find a way of sitting that works for you. No experience or religious background is needed.
+Groups are kept to eight people or fewer, so the teacher can look at your posture and help you find a way of sitting that works for you. No experience or religious background is needed.
 
 **Includes（含まれるもの）**
 - 75-minute zazen session with an English- or French-speaking teacher
 - Use of meditation cushions
-- Small group of up to 6 people
+- Small group of up to 8 people
 
 **Not included（含まれないもの）**
 - Transportation to and from the dojo
@@ -80,7 +80,7 @@ Groups are kept to six people or fewer, so the teacher can look at your posture 
 
 **Duration（所要時間）**：75 minutes
 **Languages（言語）**：English, French
-**Group size（定員）**：Max 6
+**Group size（定員）**：Max 8
 **Cancellation（キャンセル）**：Free cancellation up to 24 hours before the start time.
 
 ---
@@ -91,7 +91,7 @@ Groups are kept to six people or fewer, so the teacher can look at your posture 
 Tokyo : méditation zen en petit groupe, en français
 
 **Description courte**
-Découvrez le zazen, la méditation assise du zen, dans un dojo paisible de Tokyo. Un enseignant francophone vous guide directement, en groupe de six personnes au maximum.
+Découvrez le zazen, la méditation assise du zen, dans un dojo paisible de Tokyo. Un enseignant francophone vous guide directement, en groupe de huit personnes au maximum.
 
 **Points forts**
 - Apprenez le zazen pas à pas dans un véritable dojo zen à Tokyo
