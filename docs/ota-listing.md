@@ -61,7 +61,7 @@ Groups are kept to six people or fewer, so the teacher can look at your posture 
 - Food and drinks
 
 **Not suitable for（向かない人）**
-- Children under 12（Robertに確認してから確定してよい）
+- Children under 8（2026-10-14 T決定。8〜17歳は大人の同伴が必要）
 - People who cannot sit still for about 20 minutes
 
 **Important information / Know before you go（事前のお知らせ）**
@@ -70,6 +70,7 @@ Groups are kept to six people or fewer, so the teacher can look at your posture 
 - Please arrive 10 minutes before the start time. Late arrivals may not be able to join once the meditation has begun.（何分前かはRobertの回答で直す）
 - If sitting on the floor is difficult for you, please tell us after booking and we will discuss options.
 - Phones are kept away during meditation. Photos are welcome before and after the session.
+- Children aged 8 to 17 are welcome with an adult. They should be able to sit quietly for about 20 minutes.
 - This is a practice session, not a religious ceremony. No belief or religious background is required.
 - Please choose your language (English or French) when booking, or tell us in a message.
 
