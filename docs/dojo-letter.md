@@ -57,3 +57,36 @@ Robert Daoust（ロブ）さんと一緒に、日本を訪れる外国人旅行�
 Tokyo Zazen Studio
 メール：info@takeshihirata.com
 電話：070-3307-9130
+
+---
+
+## Robertあての英語のメッセージ（LINE用、2026-10-15）
+
+上の日本語のメールを渡してもらうときに、Robertに送る。
+
+Hi Rob,
+
+Good news: the class is now submitted to GetYourGuide and Viator, and bookings will open from Tuesday 27 October (Tuesdays 9:30, 11:30 and 15:30 to start). The website is live at https://tokyozazen.com and there is an Instagram account, @tokyozazen.
+
+I have written a short letter in Japanese for the dojo manager, to replace the old document that said 20,000 yen a month. In English, it says:
+
+- What the class is: zazen for foreign visitors, taught by you in English or French, 75 minutes, up to 8 people, 9,000 yen. I handle all bookings, payments and guest messages.
+- When: Tuesdays 9:30 / 11:30 / 15:30 from 27 October. Thursdays (9:30 / 11:30 / 13:30) only after the dojo says it is OK. None of these overlap with the regular zazenkai.
+- Contribution to the dojo: 1,000 yen per participant, paid monthly with a list of numbers by the 10th of the next month. I ask for their bank details.
+- The dojo's name is not used on the booking sites. We only say "Koto City, near Kiyosumi-shirakawa / Monzen-nakacho". The exact address goes only to guests who have booked. I will not create a new Google Maps listing.
+- Questions for the dojo: can we use it on Thursdays and on public holidays; where guests should wait and take off their shoes; any rules for photos; their facility insurance (I will get my own liability insurance); and how to tidy up after each class.
+
+Could you check it and pass it to the manager? I can print it, or send it by email if you give me their address.
+
+A few things I need from you before the 27th:
+
+1. Group size: I set the maximum at 8 people per class (the room has 12 seats). Is 8 OK for you?
+2. How many minutes before the start should guests arrive? I wrote 10 minutes.
+3. A landmark for the entrance (for example the gate or a sign) so guests can find it. If you can send a photo of the entrance, even better.
+4. Private sessions: I would like to offer them later at a higher price. Would 6,000 yen per session for you be OK?
+5. A day for a test session with one or two friends before the 27th, so we can run the whole flow once.
+
+Also, 3 November is a public holiday, so I have closed that day for now.
+
+Thank you!
+Takeshi
