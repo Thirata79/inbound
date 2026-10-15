@@ -96,7 +96,7 @@ Découvrez le zazen, la méditation assise du zen, dans un dojo paisible de Toky
 **Points forts**
 - Apprenez le zazen pas à pas dans un véritable dojo zen à Tokyo
 - Séance guidée directement en français, sans interprète
-- Petit groupe de 6 personnes maximum
+- Petit groupe de 8 personnes maximum
 - Deux temps d'assise, une marche méditative et un moment pour vos questions
 - Aucune expérience nécessaire
 
