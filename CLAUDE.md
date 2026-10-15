@@ -44,6 +44,7 @@
 
 ## Viator（2026-10-15）
 - 登録中（Supplier ID 5707022、連絡先 info@takeshihirata.com、個人で登録、居住地は目黒区）。本人確認の画面で「納税者番号（taxIdentificationNumber）」が必須で止まっている。日本の個人の納税者番号はマイナンバーだが、番号法で提供先が限られるので入れない。サポートのチャットで代わりに何を入れるか質問中。名前はパスポートと同じローマ字（TAKESHI HIRATA）、本人確認もパスポートで行う。
+- **2026-10-15 14時すぎ 商品の入力が終わった**（T報告。商品ID 5707022P7、掲載料29ドルを払う方を選んだ、タイトル「Zen Meditation Class in Tokyo in English or French」、照会コード TZS-ZAZEN-75、自動翻訳、所要75分、集合場所は道場の住所で施設名は出さない）。入力はClaude in Chromeで行った。審査の結果待ち。納税者番号の欄をどう通ったかは未確認。
 
 ## 2026-10-12 時点の状況（RobertとのLINEより）
 - ドメイン **tokyozazen.com** を購入済み（2026-10-11）。サイトの設定は切り替え済み（`docs/site-admin.md`）。
