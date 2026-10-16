@@ -130,6 +130,7 @@
       form { padding: 22px; }
     }
   </style>
+  <script src="/analytics.js"></script>
 </head>
 <body>
 
@@ -445,6 +446,7 @@
   });
 
   function done(id) {
+    if (window.gtag && id !== '—') gtag('event', 'generate_lead', { currency: 'JPY', value: 9000 * (+form.elements.party_size.value || 1) });
     document.getElementById('booking-id').textContent = id;
     form.hidden = true;
     var box = document.getElementById('booking-done');
