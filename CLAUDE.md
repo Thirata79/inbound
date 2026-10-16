@@ -51,6 +51,9 @@
 ## Instagram（2026-10-15）
 - アカウント @tokyozazen を作成（T）。週3時間の枠を超えないよう、毎日の投稿はしない。役割は「OTAやサイトを見た人が確かめに来たときに、本物だとわかる」こと。投稿は撮影済みの写真で始め、開催後は参加者の同意を得た写真を時々足す程度。
 
+## アクセス解析（2026-10-16）
+- GA4（測定ID G-Q5XHWCZEY5、プロパティ tokyozazen）を `site/analytics.js` で全ページに入れた。同意モードv2：EU・英国・スイスは「Accept」まで Cookie なし、ほかは初期値で計測。予約リクエストの送信成功で `generate_lead`（キーイベント、値＝人数×9,000円）。確定・支払いとOTA経由の予約はGA4には出ない（予約シートで見る）。TのChromeはオプトアウトのアドオンで計測から除外。Instagramのリンクは `?utm_source=instagram` を付ける。
+
 ## 2026-10-12 時点の状況（RobertとのLINEより）
 - ドメイン **tokyozazen.com** を購入済み（2026-10-11）。サイトの設定は切り替え済み（`docs/site-admin.md`）。
 - **道場（宗教法人）への協力金：** Tは月2万円固定を提案。Robertは「1人あたりでよい、法人は事業ではないので負担にならない形がよい」と返答。未決定。収支への影響は `python3 tools/economics.py --venue-fixed 20000` または `--venue-per-person 500` で確認できる。
