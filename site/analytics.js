@@ -2,7 +2,7 @@
 // Visitors from the EEA, the UK and Switzerland are not tracked with cookies until they press "Accept".
 // Everyone else is tracked by default and can still decline in the banner.
 (function () {
-  var GA_ID = ''; // 'G-XXXXXXXXXX' from GA4 → Admin → Data streams. Empty = analytics off.
+  var GA_ID = 'G-Q5XHWCZEY5'; // 'G-XXXXXXXXXX' from GA4 → Admin → Data streams. Empty = analytics off.
   if (!GA_ID) return;
 
   var KEY = 'tzs-consent';
