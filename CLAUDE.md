@@ -53,6 +53,7 @@
 
 ## アクセス解析（2026-10-16）
 - GA4（測定ID G-Q5XHWCZEY5、プロパティ tokyozazen）を `site/analytics.js` で全ページに入れた。同意モードv2：EU・英国・スイスは「Accept」まで Cookie なし、ほかは初期値で計測。予約リクエストの送信成功で `generate_lead`（キーイベント、値＝人数×9,000円）。確定・支払いとOTA経由の予約はGA4には出ない（予約シートで見る）。TのChromeはオプトアウトのアドオンで計測から除外。Instagramのリンクは `?utm_source=instagram` を付ける。
+- Search Console（2026-10-17 登録、URLプレフィックス https://tokyozazen.com/）。所有権の確認は `site/google44a69e2a9937443d.html`（消すと確認が外れる）。サイトマップは `site/sitemap.xml`、ページを足したらここにも足す。GA4の内部トラフィック「家」＝自宅回線 126.227.183.245（SoftBank、変わることがある）。
 
 ## 2026-10-12 時点の状況（RobertとのLINEより）
 - ドメイン **tokyozazen.com** を購入済み（2026-10-11）。サイトの設定は切り替え済み（`docs/site-admin.md`）。
