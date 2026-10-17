@@ -8,7 +8,7 @@
 - 色：生成り `#F6F3EC`（背景）、墨 `#1F1D1A`（文字）、灰 `#6B665E`（補足）、苔 `#5E6B4E`（アクセント1色のみ）。
 - 書体：見出し Cormorant Garamond、本文 Source Sans 3。本文18px・行間1.75。
 - レイアウト：最大幅 720px の1カラム。セクション間は大きく空ける。スマホ優先。
-- 画像：今は墨の円相（SVG）のみ。写真はテスト回のあと `site/img/` に追加する。
+- 画像：2026-10-13の撮影写真（Tが撮影）。`zendo-hero.jpg`（ヒーロー、空いた坐蒲）、`zazen-rob.jpg`（体験の流れ、OG画像）、`zendo-side.jpg`（Details）、`rob-daoust.jpg`（講師）。位置情報（EXIF）は削除済み。
 
 ## content（上から順）
 1. ヒーロー：Tokyo Zazen Studio／Zen meditation in English, in a small group／予約リクエストへのボタン

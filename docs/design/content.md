@@ -97,7 +97,7 @@
   | Duration | 75 minutes |
   | Group size | Up to 6 people |
   | Price | ¥9,000 per person |
-  | Times | Tuesdays at 9:30, 11:30, 13:30 and 15:30 / Thursdays at 9:30, 12:30 and 15:30 `[要確認：木15:30はRobertの都合、木曜の使用は法人に確認中]` |
+  | Times | Tuesdays at 9:30, 11:30 and 15:30 / Thursdays at 9:30, 11:30 and 13:30 `[要確認：木曜の使用は法人に確認中]` |
   | Location | Koto City, Tokyo, near Kiyosumi-shirakawa and Monzen-nakacho stations. The exact address is sent with your booking confirmation. |
   | What to wear | Loose, comfortable clothing you can sit cross-legged in. Shoes are removed inside. |
   | Language | English |
@@ -182,7 +182,7 @@
 - 問い合わせ先：運営者 Takeshi Hirata、連絡先 `[要確認]`
 
 ## 特定商取引法に基づく表記 `/legal.html`
-- 直販で Stripe の前払いにするので **必要**。販売事業者名（平田武）、所在地・電話番号（請求があれば遅滞なく開示する旨の記載で足りるか確認）、価格、支払方法・時期、キャンセル規定。
+- 直販で Stripe の前払いにするので **必要**。販売事業者名（平田雄士）、所在地・電話番号（請求があれば遅滞なく開示する旨の記載で足りるか確認）、価格、支払方法・時期、キャンセル規定。
 
 ---
 

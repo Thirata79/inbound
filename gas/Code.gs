@@ -17,10 +17,10 @@ const CONFIG = {
   BRAND: 'Tokyo Zazen Studio',
   TZ: 'Asia/Tokyo',
   PRICE_JPY: 9000,
-  MAX_PARTY: 6,
+  MAX_PARTY: 8,
   CUTOFF_DAYS: 2, // requests must be at least this many days ahead
   HORIZON_DAYS: 90,
-  SLOTS: { 2: '9:30,11:30,13:30,15:30', 4: '9:30,12:30,15:30' }, // weekday (0=Sun) → slots
+  SLOTS: { 2: '9:30,11:30,15:30', 4: '9:30,11:30,13:30' }, // weekday (0=Sun) → slots
   OPEN_DAYS_DEFAULT: { 2: true, 4: false }, // Thursday stays closed until the venue confirms
   HOLIDAY_CAL: 'ja.japanese#holiday@group.v.calendar.google.com',
   ROBERT_RATES: [[100, 3500], [150, 3750], [Infinity, 4000]], // monthly persons, marginal rate
