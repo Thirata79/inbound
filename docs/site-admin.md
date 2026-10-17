@@ -31,4 +31,5 @@ Tの作業は「予約シートを見る」だけにする。サイトのコー�
 
 ## ドメインと未決事項
 - **独自ドメイン `tokyozazen.com`（2026-10-10 取得、XServerドメイン）**：自動更新オン。DNSはXServer側で `@` → Aレコード `75.2.60.5`、`www` → CNAME `tokyo-zazen-studio.netlify.app`。Netlifyの Domain management に登録済みにすること。
+  - **ネームサーバーは XServerドメイン（ns1〜3.xdomain.ne.jp）にすること。** 取得時は「XServerレンタルサーバー」（ns1〜5.xserver.jp）になっていて、上のDNSレコードが使われずサイトが開けなかった（2026-10-12 に切り替え）。tokyozazen.com はレンタルサーバーの「ドメイン設定」には追加しない。
 - Netlify Forms は今は使っていない（予約はGAS）。`site/thanks.html` は旧フォームの名残で、どこからもリンクされていない。消してよい。
