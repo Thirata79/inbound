@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tokyo Zazen Studio — Zen Meditation in English</title>
-  <meta name="description" content="A 75-minute Zen meditation (zazen) session in Tokyo, taught directly in English by a Zen teacher. Small groups of up to 6. Beginners welcome.">
-  <meta property="og:title" content="Tokyo Zazen Studio — Zen Meditation in English">
-  <meta property="og:description" content="75 minutes of zazen in a quiet Tokyo dojo. Taught in English, small groups, beginners welcome.">
+  <title>Tokyo Zazen Studio — Zen Meditation in English or French</title>
+  <meta name="description" content="A 75-minute Zen meditation (zazen) session in Tokyo, taught directly in English or French by a Zen teacher. Small groups of up to 8. Beginners welcome.">
+  <meta property="og:title" content="Tokyo Zazen Studio — Zen Meditation in English or French">
+  <meta property="og:description" content="75 minutes of zazen in a quiet Tokyo dojo. Taught in English or French, small groups, beginners welcome.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tokyozazen.com/">
-  <meta property="og:image" content="https://tokyozazen.com/img/rob-daoust.jpg">
+  <meta property="og:image" content="https://tokyozazen.com/img/zazen-rob.jpg">
   <link rel="canonical" href="https://tokyozazen.com/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='36' fill='none' stroke='%231F1D1A' stroke-width='9' stroke-dasharray='200 30' stroke-linecap='round' transform='rotate(-70 50 50)'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,10 @@
     section { padding: 96px 0; border-top: 1px solid var(--line); }
     .eyebrow { font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
 
-    header.hero { min-height: 92vh; display: flex; align-items: center; padding: 64px 0; }
+    header.hero { padding: 72px 0 0; }
+    .photo { width: 100%; height: auto; display: block; border-radius: 2px; }
+    .hero-photo { max-width: 1040px; margin: 56px auto 0; padding: 0 24px; }
+    .section-photo { margin: 0 0 2rem; }
     .hero .wrap { text-align: center; }
     .enso { width: 140px; height: 140px; margin: 0 auto 40px; display: block; }
     .enso circle { stroke: var(--ink); }
@@ -123,26 +126,29 @@
       dl.details dd { margin-bottom: 14px; }
       .row { grid-template-columns: 1fr; }
       .teacher { grid-template-columns: 1fr; gap: 24px; }
-      .teacher img { max-width: 280px; }
+      .teacher img { max-width: 280px; justify-self: center; }
+      .teacher h2 { padding-top: 10px; }
       form { padding: 22px; }
     }
   </style>
+  <script src="/analytics.js"></script>
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
-    <svg class="enso" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="50" r="38" fill="none" stroke-width="6" stroke-linecap="round"
-              stroke-dasharray="210 30" transform="rotate(-70 50 50)"/>
-    </svg>
     <p class="eyebrow">Zen meditation in Tokyo</p>
     <h1>Tokyo Zazen Studio</h1>
-    <p class="lead">Sit quietly in a Tokyo dojo and learn zazen, taught directly in English.</p>
+    <p class="lead">Sit quietly in a Tokyo dojo and learn zazen, taught directly in English or French.</p>
+    <p class="lead" lang="fr" style="margin-top:-1.75rem;font-size:1rem;font-style:italic">Méditation zen à Tokyo, en français.</p>
     <a class="btn" href="#book">Request a session</a>
     <div class="facts">
-      <span>75 minutes</span><span>Up to 6 people</span><span>Beginners welcome</span><span>¥9,000 per person</span>
+      <span>75 minutes</span><span>Up to 8 people</span><span>Beginners welcome</span><span>¥9,000 per person</span>
     </div>
+  </div>
+  <div class="hero-photo">
+    <img class="photo" src="img/zendo-hero.jpg" width="1800" height="1200" fetchpriority="high"
+         alt="An empty meditation cushion on tatami, facing a calligraphy scroll and two bronze statues">
   </div>
 </header>
 
@@ -151,7 +157,9 @@
     <div class="wrap">
       <p class="eyebrow">The session</p>
       <h2>What you'll do</h2>
-      <p>No experience is needed. Your teacher guides you step by step, in English, with no interpreter in between.</p>
+      <p>No experience is needed. Your teacher guides you step by step, in English or French, with no interpreter in between.</p>
+      <img class="photo section-photo" src="img/zazen-rob.jpg" width="1600" height="1200" loading="lazy"
+           alt="Rob Daoust sitting in zazen in the dojo, in front of a hanging scroll and two bronze statues">
       <ol class="flow">
         <li><div><h3>Introduction</h3><p>How to sit, how to breathe, and what zazen is.</p></div></li>
         <li><div><h3>First sitting</h3><p>Your first period of seated meditation.</p></div></li>
@@ -166,14 +174,16 @@
     <div class="wrap">
       <p class="eyebrow">Practical information</p>
       <h2>Details</h2>
+      <img class="photo section-photo" src="img/zendo-side.jpg" width="1600" height="1200" loading="lazy"
+           alt="A meditation cushion on tatami beside the teacher's small table, with a sutra board and the scroll beyond">
       <dl class="details">
         <dt>Duration</dt><dd>75 minutes</dd>
-        <dt>Group size</dt><dd>Up to 6 people</dd>
+        <dt>Group size</dt><dd>Up to 8 people</dd>
         <dt>Price</dt><dd>¥9,000 per person</dd>
         <dt>Times</dt><dd>Tuesdays at 9:30, 11:30 and 15:30<br>Thursday sessions are coming soon.</dd>
         <dt>Location</dt><dd>Koto City, Tokyo, near Kiyosumi-shirakawa and Monzen-nakacho stations. The exact address is sent with your booking confirmation.</dd>
         <dt>What to wear</dt><dd>Loose, comfortable clothing you can sit cross-legged in. Shoes are removed inside.</dd>
-        <dt>Language</dt><dd>English</dd>
+        <dt>Language</dt><dd>English or French (choose when you book)</dd>
         <dt>Cancellation</dt><dd>Free cancellation up to 24 hours before the session.</dd>
       </dl>
     </div>
@@ -187,7 +197,7 @@
              alt="Rob Daoust in a dark blue kimono, seated in front of a lattice window with a plum tree design">
         <div>
           <h2>Rob Daoust</h2>
-          <p>Rob practises and teaches zazen at a Zen dojo in Tokyo, and he guides every session himself, in English. He has welcomed visitors and international groups to the dojo before.</p>
+          <p>Rob practises and teaches zazen at a Zen dojo in Tokyo, and he guides every session himself, in English or in French, his first language (he is from Quebec). He has welcomed visitors and international groups to the dojo before.</p>
           <p>Sessions are kept small so that he can give each person attention, from posture to breathing to the questions that come up while sitting.</p>
         </div>
       </div>
@@ -212,7 +222,7 @@
       </details>
       <details class="faq">
         <summary>Does the dojo hold other sittings?</summary>
-        <p>Yes. The dojo also holds its own regular sittings, guided in Japanese. This session is a separate introduction for visitors: guided in English from start to finish, in a small group, at times that fit a travel schedule, with time for your questions.</p>
+        <p>Yes. The dojo also holds its own regular sittings, guided in Japanese. This session is a separate introduction for visitors: guided in English or French from start to finish, in a small group, at times that fit a travel schedule, with time for your questions.</p>
       </details>
       <details class="faq">
         <summary>Can I come alone?</summary>
@@ -230,7 +240,7 @@
       <p class="eyebrow">Booking</p>
       <h2>Request a session</h2>
       <p>Choose a date and time. We will reply within 24 hours to confirm, then send a secure payment link. Your place is booked once payment is complete.</p>
-      <p class="price-band">¥9,000 per person · 75 minutes · up to 6 people</p>
+      <p class="price-band">¥9,000 per person · 75 minutes · up to 8 people</p>
       <noscript><p class="note">Online booking needs JavaScript. Please email us at <a href="mailto:info@takeshihirata.com">info@takeshihirata.com</a> to book.</p></noscript>
 
       <form id="booking" novalidate hidden>
@@ -242,7 +252,7 @@
           <label>Number of people
             <select name="party_size" required>
               <option>1</option><option selected>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
+              <option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
             </select>
           </label>
         </div>
@@ -251,6 +261,13 @@
           <div class="chips" id="times"><span class="note">Choose a date first.</span></div>
         </fieldset>
         <p class="total" id="total" aria-live="polite">Total: ¥18,000</p>
+
+        <label>Session language
+          <select name="session_language" required>
+            <option value="English">English</option>
+            <option value="French">Français</option>
+          </select>
+        </label>
 
         <div class="row">
           <label>Full name<input name="name" autocomplete="name" required></label>
@@ -324,7 +341,7 @@
   var MESSAGES = {
     INVALID_DATE: 'That date is no longer available. Please choose another date.',
     INVALID_TIME: 'That time is no longer available. Please choose another time.',
-    INVALID_PARTY_SIZE: 'Sessions are for up to 6 people.',
+    INVALID_PARTY_SIZE: 'Sessions are for up to 8 people.',
     MISSING_FIELDS: 'Please fill in the required fields.',
     INVALID_EMAIL: 'Please check your email address.',
     BUSY: 'We are busy for a moment. Please try again.'
@@ -413,7 +430,8 @@
       session_date: f.session_date.value, session_time: f.session_time.value,
       party_size: +f.party_size.value, name: f.name.value, email: f.email.value,
       country: f.country.value, contact_type: f.contact_type.value, contact_id: f.contact_id.value,
-      hotel: f.hotel.value, floor_ok: f.floor_ok.value, notes_guest: f.notes_guest.value,
+      hotel: f.hotel.value, floor_ok: f.floor_ok.value,
+      notes_guest: (f.session_language.value === 'French' ? '[Language: French] ' : '') + f.notes_guest.value,
       source: new URLSearchParams(location.search).get('utm_source') || 'direct',
       ack_request: f.ack_request.checked, ack_payment: f.ack_payment.checked
     };
@@ -429,6 +447,7 @@
   });
 
   function done(id) {
+    if (window.gtag && id !== '—') gtag('event', 'generate_lead', { currency: 'JPY', value: 9000 * (+form.elements.party_size.value || 1) });
     document.getElementById('booking-id').textContent = id;
     form.hidden = true;
     var box = document.getElementById('booking-done');

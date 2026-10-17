@@ -3,8 +3,6 @@
 使い方:
     python3 tools/economics.py                  # v12の前提（OTAにも決済手数料を計上）
     python3 tools/economics.py --no-ota-card    # OTA分は決済手数料なし（OTAが代金を回収する前提）
-    python3 tools/economics.py --dojo-per-person 1000   # 法人（道場）へ1人1,000円
-    python3 tools/economics.py --dojo-monthly 20000     # 法人（道場）へ月20,000円の定額
 """
 
 import argparse
@@ -36,18 +34,22 @@ def fees(people: int, ota_share: float, ota_card: bool) -> float:
 
 
 def monthly(people: int, ota_share: float = 0.5, ota_card: bool = True,
-            dojo_per_person: int = 0, dojo_monthly: int = 0) -> dict:
+            venue_fixed: int = 0, venue_per_person: int = 0) -> dict:
+    """venue_*: 道場（宗教法人）への協力金。月額固定か1人あたりのどちらか。"""
     revenue = people * PRICE
     robert = robert_payout(people)
     fee = fees(people, ota_share, ota_card)
-    dojo = people * dojo_per_person + dojo_monthly
+    venue = (venue_fixed if people else 0) + people * venue_per_person
     return {"people": people, "revenue": revenue, "robert": robert,
-            "fees": fee, "dojo": dojo, "net": revenue - robert - fee - dojo}
+            "fees": fee, "venue": venue,
+            "net": revenue - robert - fee - venue}
 
 
-def people_needed(target: int, ota_share: float, ota_card: bool, **dojo) -> int:
+def people_needed(target: int, ota_share: float, ota_card: bool,
+                  venue_fixed: int = 0, venue_per_person: int = 0) -> int:
     n = 1
-    while monthly(n, ota_share, ota_card, **dojo)["net"] < target:
+    while monthly(n, ota_share, ota_card, venue_fixed,
+                  venue_per_person)["net"] < target:
         n += 1
     return n
 
@@ -58,31 +60,30 @@ def main() -> None:
                    help="OTA経由の予約には決済手数料をかけない")
     p.add_argument("--target", type=int, default=200_000,
                    help="月の目標残額（円）")
-    p.add_argument("--dojo-per-person", type=int, default=0,
-                   help="法人（道場）へ払う1人あたりの額（円）")
-    p.add_argument("--dojo-monthly", type=int, default=0,
-                   help="法人（道場）へ払う月の定額（円）")
+    p.add_argument("--venue-fixed", type=int, default=0,
+                   help="道場への協力金・月額固定（円）")
+    p.add_argument("--venue-per-person", type=int, default=0,
+                   help="道場への協力金・1人あたり（円）")
     args = p.parse_args()
     ota_card = not args.no_ota_card
-    dojo = {"dojo_per_person": args.dojo_per_person,
-            "dojo_monthly": args.dojo_monthly}
+    venue = dict(venue_fixed=args.venue_fixed,
+                 venue_per_person=args.venue_per_person)
 
-    print("1人あたりの残額（Robert 3,500円の帯、道場の定額は除く）")
+    print("1人あたりの残額（Robert 3,500円の帯）")
     for label, share in [("直販のみ", 0.0), ("OTAのみ", 1.0), ("半々", 0.5)]:
-        m = monthly(1, share, ota_card, dojo_per_person=args.dojo_per_person)
-        print(f"  {label}: {m['net']:,.0f}円")
+        print(f"  {label}: {monthly(1, share, ota_card)['net']:,.0f}円")
 
     print("\n月次（OTA半々）")
-    print(f"  {'人数':>4} {'月商':>9} {'Robert':>9} {'手数料':>9} {'道場':>9} {'残額':>9}")
+    print(f"  {'人数':>4} {'月商':>9} {'Robert':>9} {'手数料':>9} {'残額':>9}")
     for n in (50, 80, 100, 150, 200):
-        m = monthly(n, 0.5, ota_card, **dojo)
+        m = monthly(n, 0.5, ota_card)
         print(f"  {n:>4} {m['revenue']:>9,} {m['robert']:>9,} "
-              f"{m['fees']:>9,.0f} {m['dojo']:>9,} {m['net']:>9,.0f}")
+              f"{m['fees']:>9,.0f} {m['net']:>9,.0f}")
 
     print(f"\n月{args.target:,}円に必要な人数")
     for label, share in [("直販のみ", 0.0), ("半々", 0.5), ("OTA7割", 0.7),
                          ("OTAのみ", 1.0)]:
-        print(f"  {label}: {people_needed(args.target, share, ota_card, **dojo)}人")
+        print(f"  {label}: {people_needed(args.target, share, ota_card, **venue)}人")
 
 
 if __name__ == "__main__":

@@ -90,7 +90,7 @@ Claude Code 用の実装指示書。四代目 魚盛の英語予約フォーム�
 | C | status | 新規 / 確定 / 支払済 / 不可 / キャンセル / 直前キャンセル / 参加済 / No-show。初期値 新規。直前キャンセル＝24時間以内のキャンセル（Robertへの支払い対象）。OTAの行は、有効な予約なら 確定 のままでよい |
 | D | session_date | |
 | E | session_time | `9:30` 形式の文字列 |
-| F | party_size | 1〜6 |
+| F | party_size | 1〜8 |
 | G | name | |
 | H | email | |
 | I | country | |
@@ -146,7 +146,7 @@ Robert への支払いは、参加済に加えて無断欠席・24時間以内�
 |---|---|
 | ENDPOINT | GAS Web アプリの URL |
 | SHARED_KEY | GAS 側と照合するキー。ブラウザに出るので秘密ではない。スパムよけ程度の意味しかない |
-| MAX_PARTY | 6 |
+| MAX_PARTY | 8 |
 | FALLBACK_EMAIL | 通信に失敗したときに出す連絡先 ○ |
 
 ### 5.3 入力項目
@@ -155,7 +155,7 @@ Robert への支払いは、参加済に加えて無断欠席・24時間以内�
 |---|---|---|---|
 | session_date | Date | ✓ | カレンダー。受付中の日だけ選べる |
 | session_time | Time | ✓ | 選んだ日の time_slots から作る |
-| party_size | Number of people | ✓ | 1〜6、初期値 2 |
+| party_size | Number of people | ✓ | 1〜8、初期値 2 |
 | name | Full name | ✓ | |
 | email | Email | ✓ | 形式チェック |
 | country | Country / region | ✓ | |
@@ -171,7 +171,7 @@ Robert への支払いは、参加済に加えて無断欠席・24時間以内�
 - floor_ok が No / Not sure のときは送信前に注記を出す：We will contact you to discuss options, such as sitting on a low bench or chair. ○（会場に椅子・坐禅椅子があるか Robert に確認）
 
 ### 5.4 価格の表示
-フォームの上に固定で出す：`¥9,000 per person · 75 minutes · up to 6 people`。人数を選んだら合計（例 `Total: ¥18,000`）を出す。
+フォームの上に固定で出す：`¥9,000 per person · 75 minutes · up to 8 people`。人数を選んだら合計（例 `Total: ¥18,000`）を出す。
 
 ### 5.5 確認チェック（送信の条件）
 ```
@@ -218,7 +218,7 @@ idle → submitting → success / error
 1. key が一致する
 2. session_date が受付中の日である
 3. session_time がその日の time_slots にある
-4. party_size が 1〜6
+4. party_size が 1〜8
 5. 必須項目がそろっている
 6. email の形式
 
@@ -246,7 +246,7 @@ idle → submitting → success / error
 
 ### 6.5 calendar の下書き作成 `fillCalendar(months)`
 - 手動で実行する関数。今日から months ヶ月先まで、火曜と木曜の行を足す（すでにある日付は上書きしない）
-- 火：`9:30,11:30,15:30`、木：`9:30,11:30,13:30` ○（2026-10-11 Robertが修正）
+- 火：`9:30,11:30,15:30`、木：`9:30,11:30,13:30` ○（2026-10-11 Robert確定）
 - **木曜は accepting を FALSE で入れる**。会場の休参日に使ってよいか法人に確認が取れたら TRUE に変える ○
 - 日本の祝日（Google の公開カレンダー `ja.japanese#holiday@group.v.calendar.google.com`）は accepting を FALSE、memo に「祝日」
 - 接心会の翌日と Robert の休みは T が手でチェックを外す
@@ -284,7 +284,7 @@ If you do not hear from us within 24 hours, please email ○.
 - 枠を確保したこと、**支払いが済むと予約が確定する**こと
 - 日時・人数・合計額
 - Stripe の Payment Link：`{PAYMENT_LINK}?client_reference_id={id}&prefilled_email={email}`
-  - Payment Link は「¥9,000 × 数量（1〜6）」、お客さんが数量を変えられる設定にする ○
+  - Payment Link は「¥9,000 × 数量（1〜8）」、お客さんが数量を変えられる設定にする ○
 - 支払いの期限（6.4）
 - キャンセル規定：24時間前まで無料、それ以降と無断欠席は返金なし
 - 場所はエリアまで（江東区、清澄白河・門前仲町の近く）。正確な住所と道順は前日のリマインドで送る ○（確定時に送るかどうか T が決める）
@@ -327,7 +327,7 @@ T の手作業の見積もり：直販1件 3〜4分、OTA 1件 1分。月60人�
 - 窓口のメールアドレス（replyTo、FALLBACK_EMAIL）
 - 受付の締切（暫定 2 日前）、支払いの期限（暫定 48 時間）
 - Stripe の Payment Link（アカウント、数量の設定）
-- 木曜の枠（法人の確認）、木 15:30（Robert の確認）
+- 木曜の枠（法人の確認）
 - 床に座れない人への対応（椅子があるか）と、坐禅の1回の時間
 - 住所・道順の文面、何分前に来るか
 - レビューを書いてもらう場所
