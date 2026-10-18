@@ -1,5 +1,7 @@
 # Instagram API を一度試す手順（2026-10-18）
 
+**結果（2026-10-18 23時）：成功。** 読み取りと投稿（zazen-rob.jpg）ができた。アプリ `tokyozazen-test`（Instagram API with Instagram Login）、@tokyozazen を Instagram Tester に追加して承認する必要があった。
+
 目的：@tokyozazen を API で読み書きできるか、一度だけ試す。常用はしない（投稿は月数回なので、予約は Meta Business Suite で足りる）。
 
 - 使うのは「Instagram API with Instagram Login」。Facebookページは不要。プロアカウントであること。
@@ -31,20 +33,16 @@ curl -s "https://graph.instagram.com/me/media?fields=id,caption,media_type,perma
 ## 3. 投稿（実際にフィードに載る）
 画像は公開URLで渡す。縦横比は 4:5〜1.91:1 の JPEG。サイトの `img/zazen-rob.jpg`（1600×1200）が使える。`img/rob-daoust.jpg`（3:4）は縦長すぎて不可。
 
-```sh
-# ① 下書き（コンテナ）を作る → {"id":"…"} が返る
-curl -s -X POST "https://graph.instagram.com/me/media" \
-  --data-urlencode "image_url=https://tokyozazen.com/img/zazen-rob.jpg" \
-  --data-urlencode "caption=Zazen in a quiet Tokyo dojo, taught in English or French. Small groups of up to 8. Link in profile." \
-  -d "access_token=$TOKEN"
+zsh では `#` の行を貼るとエラーになるので、コメントなしで1行ずつ実行する。番号は手で写さず、変数 `ID` に入れて受け渡す（写し間違いで「メディアビルダーが見つかりません」になった）。
 
-# ② 公開する（①の id を入れる）
-curl -s -X POST "https://graph.instagram.com/me/media_publish" \
-  -d "creation_id=①のid" \
-  -d "access_token=$TOKEN"
+```sh
+ID=$(curl -s -X POST "https://graph.instagram.com/me/media" --data-urlencode "image_url=https://tokyozazen.com/img/zazen-rob.jpg" --data-urlencode "caption=Zazen in a quiet Tokyo dojo, taught in English or French. Small groups of up to 8. Link in profile." -d "access_token=$TOKEN" | sed -E 's/.*"id":"([0-9]+)".*/\1/'); echo $ID
+curl -s "https://graph.instagram.com/$ID?fields=status_code&access_token=$TOKEN"
+curl -s -X POST "https://graph.instagram.com/me/media_publish" -d "creation_id=$ID" -d "access_token=$TOKEN"
 ```
 
-②で `{"id":"…"}` が返れば、投稿が公開されている。不要ならアプリから削除する（API では削除できない）。
+2行目で `"status_code":"FINISHED"` を確認してから3行目を実行する。
+3行目で `{"id":"…"}` が返れば、投稿が公開されている。不要ならアプリから削除する（API では削除できない）。
 
 ## うまくいかないとき
 - `Invalid OAuth access token`：トークンのコピー漏れか期限切れ。作り直す
